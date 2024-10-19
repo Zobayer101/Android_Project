@@ -1,117 +1,121 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import Home from './components/Home';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import CreateToDo from './components/CreateToDo';
+import Searching from './components/Serching';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+import {Alert, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
+import Settings from './components/Settings';
+import TaskList from './components/Task';
+import Batch from './components/BatchMode';
+const stack = createNativeStackNavigator();
+const App = () => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
+    <NavigationContainer>
+      <stack.Navigator initialRouteName="Home">
+        <stack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            title: 'Home',
+            headerShown: false,
+          }}
+        />
+        <stack.Screen
+          name="NewTask"
+          component={CreateToDo}
+          options={{
+            title: 'New Task',
+            headerStyle: {
+              backgroundColor: '#3116f7',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {fontWeight: 'bold', fontSize: 22},
+          }}
+        />
+        <stack.Screen
+          name="Serching"
+          component={Searching}
+          options={{
+            // eslint-disable-next-line react/no-unstable-nested-components
+            headerTitle: () => (
+              <TextInput
+                selectionColor={'#00f220'}
+                style={style.TextInput}
+                autoFocus={true}
+              />
+            ),
+
+            headerStyle: {
+              backgroundColor: '#3116f7',
+            },
+            headerTintColor: '#fff',
+            // eslint-disable-next-line react/no-unstable-nested-components
+            headerRight: () => {
+              return (
+                <TouchableOpacity onPress={() => Alert.alert('ok')}>
+                  <Icon name="search" color={'#fff'} size={30} />
+                </TouchableOpacity>
+              );
+            },
+          }}
+        />
+
+        <stack.Screen
+          name="Settings"
+          component={Settings}
+          options={{
+            title: 'Settings',
+            headerTintColor: '#fff',
+            headerStyle: {
+              backgroundColor: '#3116f7',
+            },
+            headerTitleStyle: {fontWeight: 'bold', fontSize: 22},
+          }}
+        />
+
+        <stack.Screen
+          name="Task"
+          component={TaskList}
+          options={{
+            title: 'Task',
+            headerTintColor: '#fff',
+            headerStyle: {
+              backgroundColor: '#3116f7',
+            },
+            headerTitleStyle: {fontWeight: 'bold', fontSize: 22},
+          }}
+        />
+
+        <stack.Screen
+          name="Batch"
+          component={Batch}
+          options={{
+            title: 'Batch',
+            headerTintColor: '#fff',
+            headerStyle: {
+              backgroundColor: '#3116f7',
+            },
+            headerTitleStyle: {fontWeight: 'bold', fontSize: 22},
+          }}
+        />
+      </stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+let style = StyleSheet.create({
+  TextInput: {
+    backgroundColor: '#5116f7',
+    height: 40,
+    width: 250,
+    color: '#fff',
+    fontSize: 20,
+    borderRadius: 10,
+    padding: 0,
+    paddingStart: 10,
   },
 });
 
