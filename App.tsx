@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import CreateToDo from './components/CreateToDo';
 import Searching from './components/Serching';
+import Bar from 'react-native-vector-icons/AntDesign';
 
 import {Alert, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
@@ -80,12 +81,20 @@ const App = () => {
           name="Task"
           component={TaskList}
           options={{
-            title: 'Task',
+            title: 'Task List',
             headerTintColor: '#fff',
             headerStyle: {
               backgroundColor: '#3116f7',
             },
             headerTitleStyle: {fontWeight: 'bold', fontSize: 22},
+            // eslint-disable-next-line react/no-unstable-nested-components
+            headerRight: () => {
+              return (
+                <TouchableOpacity>
+                  <Bar name="bars" color={'#fff'} size={30} />
+                </TouchableOpacity>
+              );
+            },
           }}
         />
 

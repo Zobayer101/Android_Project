@@ -270,7 +270,7 @@ const style = StyleSheet.create({
   Contuner: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#4a02b0',
+    backgroundColor: '#3616c4',
   },
   Header: {
     width: '100%',
@@ -446,6 +446,7 @@ const style = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     marginLeft: 25,
+    marginTop: 15,
     fontWeight: '700',
   },
   dateTime: {
